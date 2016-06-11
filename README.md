@@ -17,7 +17,7 @@ Or, if you already cloned the repository, cd to it and run the commands:
  git submodule update
 ```
 
-In any case, once Box2D is checked out, cd into the subfolder box2d_catkin/Box2D and checkout version
+In any case, once Box2D is checked out, cd into the subfolder box2d_catkin/Box2D and check out version
 2.3.1:
 ```bash
  git checkout v2.3.1

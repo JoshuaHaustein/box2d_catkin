@@ -34,7 +34,7 @@ endforeach()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES Box2D
+  LIBRARIES Box2D_shared
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -43,7 +43,8 @@ catkin_package(
 ## Build ##
 ###########
 set(BOX2D_INSTALL_BY_DEFAULT ON)
-SET(BOX2D_BUILD_SHARED TRUE)
+set(BOX2D_BUILD_SHARED TRUE)
+set(BOX2D_BUILD_STATIC FALSE)
 set(BOX2D_VERSION 2.3.1)
 set(LIB_INSTALL_DIR lib)
 ## Specify additional locations of header files

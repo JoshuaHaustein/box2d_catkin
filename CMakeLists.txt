@@ -12,15 +12,10 @@ find_package(catkin REQUIRED)
 
 file(REMOVE_RECURSE include/Box2D)
 file(GLOB_RECURSE HeaderFiles ${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/Box2D/*.h)
-#message(${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/Box2D/*.h)
-#message("headers are:" ${HeaderFiles})
 foreach(FilePath ${HeaderFiles})
         string(REPLACE ${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/Box2D/ ${CMAKE_CURRENT_LIST_DIR}/include/Box2D/ IncludeFileDir ${FilePath})
         get_filename_component(FileName ${IncludeFileDir} NAME)
-  #      message(${FileName})
         string(REPLACE ${FileName} "" TargetDir ${IncludeFileDir})
- #       message(${IncludeFileDir})
-#        message(${TargetDir})
         file(COPY ${FilePath} DESTINATION ${TargetDir})
 endforeach()
 
@@ -34,7 +29,7 @@ endforeach()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES Box2D_shared
+  LIBRARIES Box2D # no matter whether we build a shared or static library, we always get libBox2D
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -43,19 +38,23 @@ catkin_package(
 ## Build ##
 ###########
 set(BOX2D_INSTALL_BY_DEFAULT ON)
-set(BOX2D_BUILD_SHARED TRUE)
-set(BOX2D_BUILD_STATIC FALSE)
+set(BOX2D_BUILD_SHARED FALSE) # target Box2D_shared
+set(BOX2D_BUILD_STATIC TRUE) # target Box2D
 set(BOX2D_VERSION 2.3.1)
 set(LIB_INSTALL_DIR lib)
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(include)
 
-## Declare a C++ library
-# add_library(box2d_catkin
-#   src/${PROJECT_NAME}/box2d_catkin.cpp
-# )
+# Add the cmake file from box2d.
+# This cmake file defines two targets Box2D_shared (shared library) and Box2D (static library).
+# The problem is that they are both producing a library libBox2D (Box2D_shared is renamed),
+# although they have different target names. This results in an error message when
+# building dependent projects and building Box2D_shared only. Hence, until this is resolved
+# we have to work with a static library.
 add_subdirectory(Box2D/Box2D/Box2D)
+## Let the static library be built with position independent code
+set_property(TARGET Box2D PROPERTY POSITION_INDEPENDENT_CODE ON)
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure

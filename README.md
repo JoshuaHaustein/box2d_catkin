@@ -1,8 +1,7 @@
 # box2d_catkin
 
-This package is essentially just a wrapper around Box2D. 
-It contains a CMakeLists and package.xml so that Box2D can be built
-with catkin_make.
+This package is a wrapper around [Erin Catto's Box2D](https://github.com/erincatto/Box2D). 
+It contains a CMakeLists and package.xml so that Box2D can be built with catkin_make.
 
 This repository contains Box2D as a submodule - that is as a repository within the repository.
 Therefore, when cloning this repository you either need to clone it using the command:

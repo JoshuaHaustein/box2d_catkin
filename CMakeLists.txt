@@ -11,9 +11,9 @@ find_package(catkin REQUIRED)
 # We need to copy the header files to one place, because they are all over the place
 
 file(REMOVE_RECURSE include/Box2D)
-file(GLOB_RECURSE HeaderFiles ${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/Box2D/*.h)
+file(GLOB_RECURSE HeaderFiles ${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/*.h)
 foreach(FilePath ${HeaderFiles})
-        string(REPLACE ${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/Box2D/ ${CMAKE_CURRENT_LIST_DIR}/include/Box2D/ IncludeFileDir ${FilePath})
+        string(REPLACE ${CMAKE_CURRENT_LIST_DIR}/Box2D/Box2D/ ${CMAKE_CURRENT_LIST_DIR}/include/Box2D/ IncludeFileDir ${FilePath})
         get_filename_component(FileName ${IncludeFileDir} NAME)
         string(REPLACE ${FileName} "" TargetDir ${IncludeFileDir})
         file(COPY ${FilePath} DESTINATION ${TargetDir})
@@ -40,7 +40,7 @@ catkin_package(
 set(BOX2D_INSTALL_BY_DEFAULT ON)
 set(BOX2D_BUILD_SHARED FALSE) # target Box2D_shared
 set(BOX2D_BUILD_STATIC TRUE) # target Box2D
-set(BOX2D_VERSION 2.3.1)
+set(BOX2D_VERSION 2.3.2)
 set(LIB_INSTALL_DIR lib)
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
@@ -52,7 +52,7 @@ include_directories(include)
 # although they have different target names. This results in an error message when
 # building dependent projects and building Box2D_shared only. Hence, until this is resolved
 # we have to work with a static library.
-add_subdirectory(Box2D/Box2D/Box2D)
+add_subdirectory(Box2D/Box2D)
 ## Let the static library be built with position independent code
 set_property(TARGET Box2D PROPERTY POSITION_INDEPENDENT_CODE ON)
 ## Add cmake target dependencies of the library

@@ -37,6 +37,7 @@ catkin_package(
 ###########
 ## Build ##
 ###########
+set(CMAKE_CXX_STANDARD 11)
 set(BOX2D_INSTALL_BY_DEFAULT ON)
 set(BOX2D_BUILD_SHARED FALSE) # target Box2D_shared
 set(BOX2D_BUILD_STATIC TRUE) # target Box2D
